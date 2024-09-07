@@ -1475,6 +1475,14 @@ void evhttp_uri_free(struct evhttp_uri *uri);
 EVENT2_EXPORT_SYMBOL
 char *evhttp_uri_join(struct evhttp_uri *uri, char *buf, size_t limit);
 
+EVENT2_EXPORT_SYMBOL
+void evhttp_make_header_wrapper(struct evhttp_connection *evcon, struct evhttp_request *req);
+
+EVENT2_EXPORT_SYMBOL
+struct evhttp_connection* evhttp_get_request_connection_wrapper(
+	struct evhttp* http,
+	evutil_socket_t fd, struct sockaddr *sa, ev_socklen_t salen);
+
 #ifdef __cplusplus
 }
 #endif

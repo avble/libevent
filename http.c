@@ -5620,3 +5620,15 @@ evhttp_uri_set_fragment(struct evhttp_uri *uri, const char *fragment)
 	URI_SET_STR_(fragment);
 	return 0;
 }
+void
+evhttp_make_header_wrapper(struct evhttp_connection *evcon, struct evhttp_request *req)
+{
+	evhttp_make_header(evcon, req);
+}
+
+struct evhttp_connection* evhttp_get_request_connection_wrapper(
+	struct evhttp* http,
+	evutil_socket_t fd, struct sockaddr *sa, ev_socklen_t salen)
+{
+	return evhttp_get_request_connection(http, fd, sa, salen, NULL);
+}
