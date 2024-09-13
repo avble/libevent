@@ -202,7 +202,7 @@ static const char *evhttp_response_phrase_internal(int code);
 static void evhttp_get_request(struct evhttp *, evutil_socket_t, struct sockaddr *, ev_socklen_t, struct bufferevent *bev);
 static void evhttp_write_buffer(struct evhttp_connection *,
     void (*)(struct evhttp_connection *, void *), void *);
-static void evhttp_make_header(struct evhttp_connection *, struct evhttp_request *);
+// static void evhttp_make_header(struct evhttp_connection *, struct evhttp_request *);
 static int evhttp_method_may_have_body_(struct evhttp_connection *, enum evhttp_cmd_type);
 
 /* callbacks for bufferevent */
@@ -671,7 +671,7 @@ static enum expect evhttp_have_expect(struct evhttp_request *req, int input)
 /** Generate all headers appropriate for sending the http request in req (or
  * the response, if we're sending a response), and write them to evcon's
  * bufferevent. Also writes all data from req->output_buffer */
-static void
+void
 evhttp_make_header(struct evhttp_connection *evcon, struct evhttp_request *req)
 {
 	struct evkeyval *header;
@@ -5619,16 +5619,4 @@ evhttp_uri_set_fragment(struct evhttp_uri *uri, const char *fragment)
 		return -1;
 	URI_SET_STR_(fragment);
 	return 0;
-}
-void
-evhttp_make_header_wrapper(struct evhttp_connection *evcon, struct evhttp_request *req)
-{
-	evhttp_make_header(evcon, req);
-}
-
-struct evhttp_connection* evhttp_get_request_connection_wrapper(
-	struct evhttp* http,
-	evutil_socket_t fd, struct sockaddr *sa, ev_socklen_t salen)
-{
-	return evhttp_get_request_connection(http, fd, sa, salen, NULL);
 }
